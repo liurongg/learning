@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoshu.dao.XuexiaoMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoshu.entity.Xuexiao">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="schoolname" jdbcType="VARCHAR" property="schoolname" />
+    <result column="areaid" jdbcType="INTEGER" property="areaid" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="createtime" jdbcType="DATE" property="createtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and x.${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and x.${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and x.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and x.${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, schoolname, areaid, phone, address, status, createtime
+  </sql>
+ <select id="selectByXuexiao" parameterType="com.xiaoshu.entity.Xuexiao" resultMap="XuexiaoResultMap">
+  	SELECT x.id,x.schoolname,x.areaid,x.phone,x.address,x.status,x.createtime,c.areaname
+	FROM xuexiao X LEFT JOIN chengshi c
+	ON x.areaid=c.id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="_parameter == null">
+      where 1 = 1
+    </if>
+  
+    <if test="orderByClause != null">
+      order by x.${orderByClause}
+    </if>
+  </select>
+  <resultMap id="XuexiaoResultMap" type="com.xiaoshu.entity.Xuexiao">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="schoolname" jdbcType="VARCHAR" property="schoolname" />
+    <result column="areaid" jdbcType="INTEGER" property="areaid" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="createtime" jdbcType="DATE" property="createtime" />
+      <result column="areaname" jdbcType="VARCHAR" property="areaname" />
+  </resultMap>
+  <insert id="getMQ" parameterType="com.xiaoshu.entity.Xuexiao" useGeneratedKeys="true" keyProperty="id">
+  	insert into xuexiao values(#{id},#{schoolname},#{areaid},#{phone},#{address},#{status},#{createtime})
+  </insert>
+</mapper>
